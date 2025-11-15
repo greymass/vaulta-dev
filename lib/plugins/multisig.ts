@@ -128,7 +128,7 @@ export class WalletPluginMultiSig extends AbstractWalletPlugin implements Wallet
         const msig = new MsigContract({ client: context.client })
         const eosntime = new TimeContract({ client: context.client })
 
-        let expireSeconds = 60 * 60 * 24 * 30 // 1 month
+        let expireSeconds = 60 * 60 * 24 * 90 // 3 months
         if (this.data.expireSeconds) {
             expireSeconds = this.data.expireSeconds
         }
