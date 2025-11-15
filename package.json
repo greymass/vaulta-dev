@@ -1,0 +1,28 @@
+{
+    "name": "vaulta-dev",
+    "module": "index.ts",
+    "type": "module",
+    "private": true,
+    "scripts": {
+        "codegen": "npm run codegen:eosio && npm run codegen:eosio.msig && npm run codegen:eosio.saving && npm run codegen:time.eosn",
+        "codegen:eosio": "wharfkit generate -u https://eos.greymass.com -f ./src/contracts/eosio.ts eosio",
+        "codegen:eosio.msig": "wharfkit generate -u https://eos.greymass.com -f ./src/contracts/eosio.msig.ts eosio.msig",
+        "codegen:eosio.saving": "wharfkit generate -u https://eos.greymass.com -f ./src/contracts/eosio.saving.ts eosio.saving",
+        "codegen:time.eosn": "wharfkit generate -u https://eos.greymass.com -f ./src/contracts/time.eosn.ts time.eosn"
+    },
+    "devDependencies": {
+        "@biomejs/biome": "2.3.5",
+        "@types/bun": "latest",
+        "ts-node": "^10.9.2",
+        "tslib": "^2.8.1",
+        "typescript": "^5.9.3"
+    },
+    "dependencies": {
+        "@wharfkit/antelope": "^1.1.1",
+        "@wharfkit/cli": "^2.11.0",
+        "@wharfkit/contract": "^1.2.1",
+        "@wharfkit/session": "^1.6.1",
+        "@wharfkit/wallet-plugin-privatekey": "^1.1.0",
+        "dotenv": "^17.2.3"
+    }
+}
