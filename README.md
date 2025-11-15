@@ -8,7 +8,7 @@ This repository contains multisig proposals for the Vaulta network. Each proposa
 
 This repository contains the following proposals for the Vaulta network:
 
-### 1. Development Accounts Creation (`dev.accounts`)
+### 1. ⏳ Development Accounts Creation (`dev.accounts`)
 
 **Purpose**: Creates accounts for Vaulta development team
 
@@ -20,7 +20,7 @@ This repository contains the following proposals for the Vaulta network:
 
 ---
 
-### 2. Development Team Account Setup (`coredevdist`)
+### 2. ⏳ Development Team Account Setup (`coredevdist`)
 
 **Purpose**: Unlocks funding mechanism for core development team and removes Foundation account access
 
@@ -32,7 +32,7 @@ This repository contains the following proposals for the Vaulta network:
 
 ---
 
-### 3. Miscellaneous Vaulta Accounts Setup (`miscaccounts`)
+### 3. ⏳ Miscellaneous Vaulta Accounts Setup (`miscaccounts`)
 
 **Purpose**: Creates accounts for new Vaulta Contracts
 
@@ -44,7 +44,7 @@ This repository contains the following proposals for the Vaulta network:
 
 ---
 
-### 4. Unwind VF1 Account Permission Reset (`unwindvf1`)
+### 4. ⏳ Unwind VF1 Account Permission Reset (`unwindvf1`)
 
 **Purpose**: Resets permissions for admin.grants and eosio.grants accounts
 
