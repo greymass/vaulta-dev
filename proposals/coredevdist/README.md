@@ -1,6 +1,6 @@
-# Development Team Account Setup
+# Distribution Contract, Configuration, and Foundation Accounts
 
-> Vaulta Core Development Team Configuration
+> Configure distribution contracts and update former Foundation accounts.
 
 ## Overview
 
