@@ -128,11 +128,14 @@ export class WalletPluginMultiSig extends AbstractWalletPlugin implements Wallet
             transaction_extensions: [],
         })
 
+        const proposalName = generateRandomName()
+        this.data.lastProposalName = proposalName
+
         const actions = [
             msig.action(
                 'propose',
                 {
-                    proposal_name: generateRandomName(),
+                    proposal_name: proposalName,
                     proposer: session.actor,
                     requested,
                     trx,

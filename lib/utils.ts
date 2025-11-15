@@ -1,5 +1,5 @@
-import { PermissionLevel } from '@wharfkit/antelope'
-import SessionKit from '@wharfkit/session'
+import type { Session, TransactResult } from '@wharfkit/session'
+import { PROPOSER_PERMISSION } from './constants'
 
 export function generateRandomName(length = 12) {
     let name = ''
@@ -10,4 +10,13 @@ export function generateRandomName(length = 12) {
     }
 
     return name
+}
+
+export function logProposalLink(result: TransactResult, session: Session) {
+    console.log('Proposed transaction:', JSON.stringify(result.transaction, null, 2))
+
+    console.log('\nView and approve the proposal at the link below:')
+    console.log(
+        `https://unicove.com/en/vaulta/msig/${PROPOSER_PERMISSION.actor}/${session.walletPlugin.data.lastProposalName}`,
+    )
 }

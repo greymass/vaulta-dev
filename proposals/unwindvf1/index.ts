@@ -1,10 +1,8 @@
 import type { Action } from '@wharfkit/antelope'
-import { Chains, Session } from '@wharfkit/session'
-import { WalletPluginPrivateKey } from '@wharfkit/wallet-plugin-privatekey'
-import { NETWORK_AUTHORITY, PROPOSER_PERMISSION, PROPOSER_PRIVATE_KEY } from '$lib/constants'
+import { NETWORK_AUTHORITY } from '$lib/constants'
 import * as SystemContract from '$lib/contracts/eosio'
-import { WalletPluginMultiSig } from '$lib/plugins/multisig'
-import { client } from '$lib/wharf'
+import { logProposalLink } from '$lib/utils'
+import { client, makeSession } from '$lib/wharf'
 
 const systemContract = new SystemContract.Contract({ client })
 
@@ -68,23 +66,6 @@ const actions: Action[] = [
     }),
 ]
 
-const walletPlugin = new WalletPluginPrivateKey(PROPOSER_PRIVATE_KEY)
-
-const proposerSession = new Session({
-    chain: Chains.Vaulta,
-    permissionLevel: PROPOSER_PERMISSION,
-    walletPlugin: walletPlugin,
-})
-
-const actorSession = new Session({
-    chain: Chains.Vaulta,
-    permissionLevel: 'eosio.grants@active',
-    walletPlugin: new WalletPluginMultiSig({
-        walletPlugins: [walletPlugin],
-    }),
-})
-
-actorSession.walletPlugin.data.session = proposerSession
-
-const result = await actorSession.transact({ actions }, { broadcast: false })
-console.log('Proposed foundation update transaction:', JSON.stringify(result.transaction, null, 2))
+const session = makeSession('eosio.grants@active')
+const result = await session.transact({ actions }, { broadcast: false })
+logProposalLink(result, session)
