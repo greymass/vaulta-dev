@@ -101,7 +101,20 @@ const actions: Action[] = [
     // 7. Update eosio.mware active permission, set to dev.vaulta account (remove msig, confirm with Labs)
     systemContract.action('updateauth', {
         account: 'eosio.mware',
-        auth: DEV_AUTHORITY,
+        auth: {
+            threshold: 1,
+            keys: [],
+            accounts: [
+                {
+                    weight: 1,
+                    permission: {
+                        actor: DEV_ACCOUNT,
+                        permission: 'active',
+                    },
+                },
+            ],
+            waits: [],
+        },
         permission: 'active',
         parent: 'owner',
     }),

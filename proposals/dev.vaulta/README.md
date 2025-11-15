@@ -216,27 +216,20 @@ graph TD
 }
 ```
 
-- [x] 4.2 Update `eosio.mware` active permission to dev.vaulta 2-of-2 authority
+- [x] 4.2 Update `eosio.mware` active permission to dev.vaulta@active
 
 **updateauth**
 ```json
 {
     "account": "eosio.mware",
     "auth": {
-        "threshold": 2,
+        "threshold": 1,
         "keys": [],
         "accounts": [
             {
                 "weight": 1,
                 "permission": {
-                    "actor": "ahayrapetian",
-                    "permission": "active"
-                }
-            },
-            {
-                "weight": 1,
-                "permission": {
-                    "actor": "aaron",
+                    "actor": "dev.vaulta",
                     "permission": "active"
                 }
             }
