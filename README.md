@@ -8,6 +8,8 @@ This repository contains multisig proposals for the Vaulta network. Each proposa
 
 This repository contains the following proposals for the Vaulta network:
 
+---
+
 ### 1. ⏳ Development Accounts Creation (`dev.accounts`)
 
 **Purpose**: Creates accounts for Vaulta development team
@@ -53,6 +55,8 @@ This repository contains the following proposals for the Vaulta network:
 **Signers**: 2/3 Foundation
 
 **Link**: [proposals/unwindvf1](proposals/unwindvf1)
+
+---
 
 ## Installation
 
