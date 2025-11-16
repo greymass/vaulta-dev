@@ -87,10 +87,23 @@ graph TD
 
 > Note: Accounts `dev.vaulta` and `dist.vaulta` should already exist and before this proposal is made.
 
+#### Allocate Resources
+
+- [x] 1.1 Buy RAM for `dist.vaulta` contract
+
+**buyrambytes**
+```json
+{
+    "bytes": 200000,
+    "payer": "eosio",
+    "receiver": "dist.vaulta"
+}
+```
+
 #### Deploy Distribution Contract
 
-- [x] 1.1 Deploy `eosio.saving` contract to `dist.vaulta`
-- [x] 1.2 Set contract ABI for `dist.vaulta`
+- [x] 2.1 Deploy `eosio.saving` contract to `dist.vaulta`
+- [x] 2.2 Set contract ABI for `dist.vaulta`
 
 **setcode**
 ```json
@@ -112,7 +125,7 @@ graph TD
 
 #### Configure Distribution Strategies
 
-- [x] 2.1 Configure `dist.vaulta` to distribute 100% to `dev.vaulta`
+- [x] 3.1 Configure `dist.vaulta` to distribute 100% to `dev.vaulta`
 
 **dist.vaulta::setdistrib**
 ```json
@@ -126,7 +139,7 @@ graph TD
 }
 ```
 
-- [x] 2.2 Update `eosio.saving` distribution to include `dist.vaulta` (29.55%)
+- [x] 3.2 Update `eosio.saving` distribution to include `dist.vaulta` (29.55%)
 
 **eosio.saving::setdistrib**
 ```json
@@ -150,7 +163,7 @@ graph TD
 
 #### Update Permissions
 
-- [x] 3.1 Update `fund.wram` active permission to network authority (replace eosio.grants@active with eosio@active)
+- [x] 4.1 Update `fund.wram` active permission to network authority (replace eosio.grants@active with eosio@active)
 
 **updateauth**
 ```json
@@ -175,7 +188,7 @@ graph TD
 }
 ```
 
-- [x] 3.2 Update `eosio.mware` active permission to dev.vaulta@active
+- [x] 4.2 Update `eosio.mware` active permission to dev.vaulta@active
 
 **updateauth**
 ```json
@@ -200,7 +213,7 @@ graph TD
 }
 ```
 
-- [x] 3.3 Create `devclaim` permission on `dist.vaulta` for development team
+- [x] 4.3 Create `devclaim` permission on `dist.vaulta` for development team
 
 **updateauth**
 ```json
@@ -225,7 +238,7 @@ graph TD
 }
 ```
 
-- [x] 3.4 Link `devclaim` permission to only allow calling `eosio.saving::claim`
+- [x] 4.4 Link `devclaim` permission to only allow calling `eosio.saving::claim`
 
 **linkauth**
 ```json
@@ -234,19 +247,6 @@ graph TD
     "code": "eosio.saving",
     "type": "claim",
     "requirement": "devclaim"
-}
-```
-
-#### Allocate Resources
-
-- [x] 4.1 Buy RAM for `dist.vaulta` contract
-
-**buyrambytes**
-```json
-{
-    "bytes": 200000,
-    "payer": "eosio",
-    "receiver": "dist.vaulta"
 }
 ```
 
