@@ -200,6 +200,43 @@ graph TD
 }
 ```
 
+- [x] 3.3 Create `devclaim` permission on `dist.vaulta` for development team
+
+**updateauth**
+```json
+{
+    "account": "dist.vaulta",
+    "auth": {
+        "threshold": 1,
+        "keys": [],
+        "accounts": [
+            {
+                "weight": 1,
+                "permission": {
+                    "actor": "dev.vaulta",
+                    "permission": "active"
+                }
+            }
+        ],
+        "waits": []
+    },
+    "permission": "devclaim",
+    "parent": "active"
+}
+```
+
+- [x] 3.4 Link `devclaim` permission to only allow calling `eosio.saving::claim`
+
+**linkauth**
+```json
+{
+    "account": "dist.vaulta",
+    "code": "eosio.saving",
+    "type": "claim",
+    "requirement": "devclaim"
+}
+```
+
 ### Build & Verify
 
 This proposal deploys a contract identical to the `eosio.saving` contract on to the `dist.vaulta` account. 

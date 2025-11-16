@@ -116,6 +116,45 @@ const actions: Action[] = [
             authorization: [{ actor: 'eosio.mware', permission: 'owner' }],
         },
     ),
+    // 6. Update the dist.vaulta contract to add a new permission for the development team
+    systemContract.action(
+        'updateauth',
+        {
+            account: DIST_ACCOUNT,
+            auth: {
+                threshold: 1,
+                keys: [],
+                accounts: [
+                    {
+                        weight: 1,
+                        permission: {
+                            actor: DEV_ACCOUNT,
+                            permission: 'active',
+                        },
+                    },
+                ],
+                waits: [],
+            },
+            permission: 'devclaim',
+            parent: 'active',
+        },
+        {
+            authorization: [{ actor: DIST_ACCOUNT, permission: 'active' }],
+        },
+    ),
+    // 7. Update the devclaim permission with a eosio::linkauth call so it can only call eosio.saving::claim
+    systemContract.action(
+        'linkauth',
+        {
+            account: DIST_ACCOUNT,
+            code: 'eosio.saving',
+            type: 'claim',
+            requirement: 'devclaim',
+        },
+        {
+            authorization: [{ actor: DIST_ACCOUNT, permission: 'active' }],
+        },
+    ),
 ]
 
 const session = makeSession('eosio@active')
