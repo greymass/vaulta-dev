@@ -74,7 +74,7 @@ graph TD
 
 **dev.vaulta** - Development team multi-sig account (2-of-2)
 - Owned by the network (eosio@active)
-- Accessible by development team representatives 
+- Accessible with consensus of representatives of development 
     - ahayrapetian@active (Areg)
     - aaron@active (Aaron)
 

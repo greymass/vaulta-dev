@@ -144,7 +144,7 @@ export class WalletPluginMultiSig extends AbstractWalletPlugin implements Wallet
             transaction_extensions: [],
         })
 
-        const proposalName = generateRandomName()
+        const proposalName = this.data.proposalName || generateRandomName()
         this.data.lastProposalName = proposalName
 
         const actions = [
