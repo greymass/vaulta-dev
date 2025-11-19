@@ -8,7 +8,7 @@ This proposal seeks to:
 
 1. Unlock a funding mechanism for the core development team
 2. Transfers control of fund.wram to the network authority
-3. Transfers control of eosio.mware to the development team
+3. Transfers control of eosio.mware to the network authority
 
 ### 1. Development Team Funding
 
@@ -36,9 +36,9 @@ This step is being taken to remove control from the Foundation account, without 
 
 This is a 2-of-2 msig between the Foundation and Labs in stalemate.
 
-Labs has indicated in discussions it is willing to surrender control of this account to the development team. For that reason, the permissions of this account will be updated to the new `dev.vaulta` account.
+Without a solution on how to use this account, this proposal will simply replace the active permission with `eosio@active`. 
 
-If Labs reverses this opinion, this proposal can be modified to simply replace the active permission with `eosio@active` similar to the fund.wram account. 
+This step is being taken to remove control from the Foundation account, without needing to decide on the fate of the account.
 
 ### Fund Distribution Flow
 
