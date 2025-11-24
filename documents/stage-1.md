@@ -230,6 +230,8 @@ Additional technical information for each proposal is available using the Github
 
 The first proposal creates the 2 accounts required for this proposal. This must happen before deploying the smart contract and setting the distribution configuration.
 
+**Technical Documentation**: [../proposals/dev.accounts/](../proposals/dev.accounts/)
+
 **Proposal**
 
 - Status: https://unicove.com/en/vaulta/msig/aaron/fwmpntxlmfhz
@@ -268,6 +270,8 @@ This contract can claim tokens upstream from the eosio.saving account. Those tok
 
 The second proposal configures the distribution contracts and resolves outstanding issues with Vaulta Foundation accounts.
 
+**Technical Documentation**: [../proposals/coredevdist/](../proposals/coredevdist/)
+
 **Proposal**
 
 - Not available yet
@@ -278,9 +282,9 @@ The second proposal configures the distribution contracts and resolves outstandi
 
 ### Messaging
 
-The multisig proposal will include a reference to this document. This shows that the network agrees with this plan.
+Proposal 2 will include a permanent on-chain reference to this document. This creates a verifiable record that Block Producers approved this specific plan.
 
-The reference will be a document hash or version link. It will be included through a small token transfer. The transfer memo field will contain the reference.
+The reference is either a document hash or version link. It is stored in a token transfer memo field. This makes the agreement permanent and auditable on the blockchain.
 
 ### Distribution Contract
 
@@ -300,7 +304,9 @@ The following new account will be created.
 
 #### fund.vaulta
 
-This account can claim the 50% unallocated distribution from the dist.vaulta account. This is an administrative account. It is needed due to how the dist.vaulta contract works.
+This account receives the 50% unallocated distribution from the dist.vaulta account. The distribution contract requires a receiving account for each allocation. These funds remain under network control for future use.
+
+Block Producers will decide later how to use these funds. Possible uses include additional development funding, community programs, or infrastructure projects.
 
 **Permissions**:
 - owner: eosio@active ([owned by the network](#understanding-network-ownership))
@@ -385,7 +391,7 @@ As the Vaulta Foundation shuts down, some existing accounts need permission upda
 
 Two accounts have been identified as unusable based on their permissions. Each account exists in a 2-of-2 multisig between the Foundation and Labs. The Foundation is shutting down. These accounts cannot be used until [Block Producers](#understanding-network-ownership) take action.
 
-Listed below are the actions to remove the Foundation from these permissions.
+Listed below are the actions to remove the Foundation from these permissions. See [technical documentation](../proposals/coredevdist/#updating-permissions) for implementation details.
 
 #### eosio.mware
 
