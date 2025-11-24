@@ -2,59 +2,65 @@
 
 > Infrastructure and governance proposals for the Vaulta network
 
-This repository contains multisig proposals for the Vaulta network. Each proposal is self-contained with its own documentation. 
+This repository contains multisig proposals for the Vaulta network. Each proposal is self-contained with its own documentation.
 
-## Proposals
+## Stage 1: Foundation Transition
 
-This repository contains the following proposals for the Vaulta network:
+### Written Proposal
 
----
+**Document**: [Stage 1 Proposal](documents/stage-1.md)  
+**Purpose**: Describes the transition from Vaulta Foundation to new entities (VDT & VNT)  
+**Status**: 📝 Draft v6
 
-### 1. ⏳ Development Accounts Creation (`dev.accounts`)
+This document provides the full context and rationale for the Stage 1 transition, including:
+- Creation of Vaulta Development Team (VDT) and Vaulta Network Trust (VNT)
+- New funding distribution mechanism
+- Resolution of Foundation account access issues
 
-**Purpose**: Creates accounts for Vaulta development team
+### Technical Proposals
 
-**Dependencies**: None
+#### 1. ⏳ Account Creation (`dev.accounts`)
 
-**Signers**: 15/21 BPs
-
-**Link**: [proposals/dev.accounts](proposals/dev.accounts)
-
----
-
-### 2. ⏳ Development Team Account Setup (`coredevdist`)
-
-**Purpose**: Unlocks funding mechanism for core development team and removes Foundation account access
-
-**Dependencies**: Requires `dev.accounts` proposal to be executed first
-
-**Signers**: 15/21 BPs
-
-**Link**: [proposals/coredevdist](proposals/coredevdist)
+**Purpose**: Creates accounts for Vaulta development infrastructure  
+**Dependencies**: None  
+**Signers**: 15/21 BPs  
+**Links**: [Proposal](proposals/dev.accounts) | [Code](proposals/dev.accounts/index.ts)
 
 ---
 
-### 3. ⏳ Miscellaneous Vaulta Accounts Setup (`miscaccounts`)
+#### 2. ⏳ Contracts & Configuration (`coredevdist`)
 
-**Purpose**: Creates accounts for new Vaulta Contracts
-
-**Dependencies**: Requires `dev.accounts` proposal to be executed first
-
-**Signers**: 15/21 BPs
-
-**Link**: [proposals/miscaccounts](proposals/miscaccounts)
+**Purpose**: Deploys distribution contracts and configures funding  
+**Dependencies**: Requires `dev.accounts` to be executed first  
+**Signers**: 15/21 BPs  
+**Links**: [Proposal](proposals/coredevdist) | [Code](proposals/coredevdist/index.ts)
 
 ---
 
-### 4. ⏳ Unwind VF1 Account Permission Reset (`unwindvf1`)
+## Foundation Cleanup
 
-**Purpose**: Resets permissions for admin.grants and eosio.grants accounts
+#### 3. ✅ Unwind VF1 - Permission Reset (`unwindvf1`)
 
-**Dependencies**: None
+**Purpose**: Resets permissions for admin.grants and eosio.grants accounts  
+**Status**: Completed  
+**Dependencies**: None  
+**Signers**: 2/3 Foundation  
+**Links**: [Proposal](proposals/unwindvf1) | [Code](proposals/unwindvf1/index.ts)
 
-**Signers**: 2/3 Foundation
+**Transactions**:
+- Created: [4daa332d...](https://unicove.com/transaction/4daa332db95d2451d9a424897a4a05ac3dc1c7c268f9811f5321dcda84865ba8)
+- Executed: [efb12b90...](https://unicove.com/transaction/efb12b9070065cf6f2f9440a4ac030e5155ca17e62efd0e8fb67ae73ff230443)
 
-**Link**: [proposals/unwindvf1](proposals/unwindvf1)
+---
+
+## Platform Infrastructure
+
+#### 4. ⏳ Miscellaneous Accounts (`miscaccounts`)
+
+**Purpose**: Creates accounts for new Vaulta platform contracts  
+**Dependencies**: Requires `dev.accounts` to be executed first  
+**Signers**: 15/21 BPs  
+**Links**: [Proposal](proposals/miscaccounts) | [Code](proposals/miscaccounts/index.ts)
 
 ---
 
