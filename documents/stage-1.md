@@ -234,9 +234,9 @@ The first proposal creates the 2 accounts required for this proposal. This must 
 
 **Proposal**
 
-- Status: https://unicove.com/en/vaulta/msig/aaron/fwmpntxlmfhz
-- Actions: https://unicove.com/en/vaulta/msig/aaron/fwmpntxlmfhz/actions
-- Transaction: https://unicove.com/en/vaulta/msig/aaron/fwmpntxlmfhz/transaction
+- Status: https://unicove.com/msig/aaron/fwmpntxlmfhz
+- Actions: https://unicove.com/msig/aaron/fwmpntxlmfhz/actions
+- Transaction: https://unicove.com/msig/aaron/fwmpntxlmfhz/transaction
 
 **Source Code + Documentation**
 
@@ -395,7 +395,7 @@ Listed below are the actions to remove the Foundation from these permissions. Se
 
 #### eosio.mware
 
-Links: [Account](https://unicove.com/en/vaulta/account/eosio.mware) | [Permissions](https://unicove.com/en/vaulta/account/eosio.mware/permissions) | [Balances](https://unicove.com/en/vaulta/account/eosio.mware/balances)
+Links: [Account](https://unicove.com/account/eosio.mware) | [Permissions](https://unicove.com/account/eosio.mware/permissions) | [Balances](https://unicove.com/account/eosio.mware/balances)
 
 This account holds the remaining budget allocated to Middleware. Labs has indicated they would agree with assigning this account to the development team.
 
@@ -408,7 +408,7 @@ This proposal would change the active permission to [network ownership](#underst
 
 #### fund.wram
 
-Links: [Account](https://unicove.com/en/vaulta/account/fund.wram) | [Permissions](https://unicove.com/en/vaulta/account/fund.wram/permissions) | [Balances](https://unicove.com/en/vaulta/account/fund.wram/balances)
+Links: [Account](https://unicove.com/account/fund.wram) | [Permissions](https://unicove.com/account/fund.wram/permissions) | [Balances](https://unicove.com/account/fund.wram/balances)
 
 This account was used to accumulate RAM for the network as part of the tokenomics proposal. It currently holds a significant amount of RAM. The RAM cannot be accessed with its current permissions.
 
