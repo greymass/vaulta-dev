@@ -24,7 +24,8 @@ This document provides the full context and rationale for the Stage 1 transition
 **Purpose**: Creates accounts for Vaulta development infrastructure  
 **Dependencies**: None  
 **Signers**: 15/21 BPs  
-**Links**: [Proposal](proposals/dev.accounts) | [Code](proposals/dev.accounts/index.ts)
+**Proposal**: https://unicove.com/msig/aaron/fwmpntxlmfhz  
+**Links**: [Documentation](proposals/dev.accounts) | [Code](proposals/dev.accounts/index.ts)
 
 ---
 
@@ -33,7 +34,7 @@ This document provides the full context and rationale for the Stage 1 transition
 **Purpose**: Deploys distribution contracts and configures funding  
 **Dependencies**: Requires `dev.accounts` to be executed first  
 **Signers**: 15/21 BPs  
-**Links**: [Proposal](proposals/coredevdist) | [Code](proposals/coredevdist/index.ts)
+**Links**: [Documentation](proposals/coredevdist) | [Code](proposals/coredevdist/index.ts)
 
 ---
 
@@ -45,7 +46,7 @@ This document provides the full context and rationale for the Stage 1 transition
 **Status**: Completed  
 **Dependencies**: None  
 **Signers**: 2/3 Foundation  
-**Links**: [Proposal](proposals/unwindvf1) | [Code](proposals/unwindvf1/index.ts)
+**Links**: [Documentation](proposals/unwindvf1) | [Code](proposals/unwindvf1/index.ts)
 
 **Transactions**:
 - Created: [4daa332d...](https://unicove.com/transaction/4daa332db95d2451d9a424897a4a05ac3dc1c7c268f9811f5321dcda84865ba8)
@@ -60,7 +61,7 @@ This document provides the full context and rationale for the Stage 1 transition
 **Purpose**: Creates accounts for new Vaulta platform contracts  
 **Dependencies**: Requires `dev.accounts` to be executed first  
 **Signers**: 15/21 BPs  
-**Links**: [Proposal](proposals/miscaccounts) | [Code](proposals/miscaccounts/index.ts)
+**Links**: [Documentation](proposals/miscaccounts) | [Code](proposals/miscaccounts/index.ts)
 
 ---
 
