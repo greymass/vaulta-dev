@@ -1,4 +1,4 @@
-# Stage 1: Vaulta Foundation Transition
+# Stage 1: Vaulta Foundation Transition (v6)
 
 > This proposal creates two new legal entities to ensure continuity after the Vaulta Foundation shuts down.
 
