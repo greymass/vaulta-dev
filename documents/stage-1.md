@@ -266,9 +266,10 @@ MSIG 1 creates the 3 accounts required for this proposal. This must happen befor
 
 **MSIG Status**
 
-- Status: https://unicove.com/msig/aaron/fwmpntxlmfhz
-- Actions: https://unicove.com/msig/aaron/fwmpntxlmfhz/actions
-- Transaction: https://unicove.com/msig/aaron/fwmpntxlmfhz/transaction
+- Approval UI: https://unicove.com/en/vaulta/msig/aaron/stage1msig1
+- Historic UI: https://msigs.io/proposal/aaron/stage1msig1
+- Actions: https://unicove.com/en/vaulta/msig/aaron/stage1msig1/actions
+- Transaction: https://unicove.com/en/vaulta/msig/aaron/stage1msig1/transaction
 
 **Source Code + Documentation**
 

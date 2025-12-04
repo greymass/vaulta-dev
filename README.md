@@ -24,7 +24,9 @@ This document provides the full context and rationale for the Stage 1 transition
 **Purpose**: Creates accounts for Vaulta development infrastructure  
 **Dependencies**: None  
 **Signers**: 15 of 21 Block Producers  
-**Proposal**: https://unicove.com/msig/aaron/fwmpntxlmfhz  
+**Proposal**: https://unicove.com/en/vaulta/msig/aaron/stage1msig1
+**Proposal**: https://msigs.io/proposal/aaron/stage1msig1
+**Proposal (Old, reference)**: https://unicove.com/msig/aaron/fwmpntxlmfhz  
 **Links**: [Documentation](proposals/dev.accounts) | [Code](proposals/dev.accounts/index.ts)
 
 ---
