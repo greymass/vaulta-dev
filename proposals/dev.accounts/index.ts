@@ -48,6 +48,6 @@ const actions: Action[] = [
     }),
 ]
 
-const session = makeSession('eosio@active')
+const session = makeSession('eosio@active', 'stage1msig1')
 const result = await session.transact({ actions }, { broadcast: true })
 logProposalLink(result, session)
