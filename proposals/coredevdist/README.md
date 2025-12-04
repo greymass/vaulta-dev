@@ -18,7 +18,7 @@ All of the accounts listed below are owned by the network.
 - `dist.vaulta` receives partial distribution and can redistribute
 - `dev.vaulta` claims and allocates to development team accounts
 
-The `dev.vaulta` while being owned by the network is accessible by representatives of the development team. This will start as a 2-of-2 msig permission between Areg and Aaron. Additional signers can be added over time as required.
+The `dev.vaulta` account is owned by the network but accessible by the development team. The active permission will be updated to a VDT multi-sig (either 2-of-3 or 3-of-5 as defined by Areg, to be confirmed before MSIG 2 execution).
 
 This configuration can be temporary. At the time of this proposal it is undecided on how this configuration operates long term. This initial configuration is designed to provide a bucket to bootstrap the core development team.
 
@@ -56,7 +56,8 @@ graph TD
     percent --> |16.74%| eoslabs.io(eoslabs.io 10.6M EOS/year)
     eosio.reward --> weights_rewards{% weights}
     weights_rewards --> |100% Donate To REX 2.0| eosio.rex(eosio.rex)
-    dist.vaulta --> |100%| dev.vaulta(dev.vaulta 18.7M EOS/year)
+    dist.vaulta --> |50%| dev.vaulta(dev.vaulta 9.3M EOS/year)
+    dist.vaulta --> |50%| fund.vaulta(fund.vaulta 9.3M EOS/year)
 ```
 
 ### Allocations
@@ -68,24 +69,31 @@ graph TD
 | eosio.saving | eosio.reward | 53.71% |
 | eosio.saving | dist.vaulta | 29.55% |
 | eosio.saving | eoslabs.io | 16.74% |
-| dist.vaulta | dev.vaulta | 100% |
+| dist.vaulta | dev.vaulta | 50% |
+| dist.vaulta | fund.vaulta | 50% |
 
 ### Account Structure
 
-**dev.vaulta** - Development team multi-sig account (2-of-2)
-- Owned by the network (eosio@active)
-- Accessible with consensus of representatives of development 
-    - ahayrapetian@active (Areg)
-    - aaron@active (Aaron)
+**dev.vaulta** - Development team multi-sig account
+- Owner: eosio@active (15 of 21 Block Producers)
+- Active: VDT multi-sig (updated in this proposal)
+    - Structure will be either 2-of-3 or 3-of-5 as defined by Areg
+    - Signers to be confirmed before MSIG 2 execution
 
 **dist.vaulta** - Distribution contract account
-- Owned by the network (eosio@active)
+- Owner: eosio@active (15 of 21 Block Producers)
+- Active: eosio@active (15 of 21 Block Producers)
 - Runs eosio.saving contract
-- Distributes 100% of incoming funds to dev.vaulta
+- Distributes 50% to dev.vaulta, 50% to fund.vaulta
+
+**fund.vaulta** - Unallocated funds account
+- Owner: eosio@active (15 of 21 Block Producers)
+- Active: eosio@active (15 of 21 Block Producers)
+- Receives 50% of distribution from dist.vaulta
 
 ### MSIG - Development Team Setup
 
-> Note: Accounts `dev.vaulta` and `dist.vaulta` should already exist and before this proposal is made.
+> Note: Accounts `dev.vaulta`, `dist.vaulta`, and `fund.vaulta` should already exist before this proposal is made.
 
 #### Allocate Resources
 
@@ -125,7 +133,7 @@ graph TD
 
 #### Configure Distribution Strategies
 
-- [x] 3.1 Configure `dist.vaulta` to distribute 100% to `dev.vaulta`
+- [x] 3.1 Configure `dist.vaulta` to distribute 50% to `dev.vaulta` and 50% to `fund.vaulta`
 
 **dist.vaulta::setdistrib**
 ```json
@@ -133,7 +141,11 @@ graph TD
     "accounts": [
         {
             "account": "dev.vaulta",
-            "percent": 10000
+            "percent": 5000
+        },
+        {
+            "account": "fund.vaulta",
+            "percent": 5000
         }
     ]
 }
@@ -163,7 +175,52 @@ graph TD
 
 #### Update Permissions
 
-- [x] 4.1 Update `fund.wram` active permission to network authority (replace eosio.grants@active with eosio@active)
+- [x] 4.1 Update `dev.vaulta` active permission to VDT multi-sig
+
+**updateauth**
+
+The exact multi-sig structure will be either 2-of-3 or 3-of-5 as defined by Areg before MSIG 2 execution.
+
+Example structure (placeholder - MUST be updated before execution):
+```json
+{
+    "account": "dev.vaulta",
+    "auth": {
+        "threshold": 2,
+        "keys": [],
+        "accounts": [
+            {
+                "weight": 1,
+                "permission": {
+                    "actor": "ahayrapetian",
+                    "permission": "active"
+                }
+            },
+            {
+                "weight": 1,
+                "permission": {
+                    "actor": "tbd1",
+                    "permission": "active"
+                }
+            },
+            {
+                "weight": 1,
+                "permission": {
+                    "actor": "tbd2",
+                    "permission": "active"
+                }
+            }
+        ],
+        "waits": []
+    },
+    "permission": "active",
+    "parent": "owner"
+}
+```
+
+**Note**: Add additional accounts if using 3-of-5 structure. Update threshold accordingly.
+
+- [x] 4.2 Update `fund.wram` active permission to network authority (replace eosio.grants@active with eosio@active)
 
 **updateauth**
 ```json
@@ -188,7 +245,7 @@ graph TD
 }
 ```
 
-- [x] 4.2 Update `eosio.mware` active permission to network authority (replace existing permission with eosio@active)
+- [x] 4.3 Update `eosio.mware` active permission to network authority (replace existing permission with eosio@active)
 
 **updateauth**
 ```json
@@ -213,7 +270,7 @@ graph TD
 }
 ```
 
-- [x] 4.3 Create `devclaim` permission on `dist.vaulta` for development team
+- [x] 4.4 Create `devclaim` permission on `dist.vaulta` for development team
 
 **updateauth**
 ```json
@@ -238,7 +295,7 @@ graph TD
 }
 ```
 
-- [x] 4.4 Link `devclaim` permission to only allow calling `eosio.saving::claim`
+- [x] 4.5 Link `devclaim` permission to only allow calling `eosio.saving::claim`
 
 **linkauth**
 ```json

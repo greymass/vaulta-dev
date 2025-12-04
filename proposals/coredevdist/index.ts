@@ -9,35 +9,13 @@ import {
     savingContract,
     systemContract,
 } from '$lib/wharf'
-import { NETWORK_AUTHORITY, SYSTEM_ACCOUNT } from '../../lib/constants'
+import { DEV_AUTHORITY, NETWORK_AUTHORITY, SYSTEM_ACCOUNT } from '../../lib/constants'
 
 const DEV_ACCOUNT = 'dev.vaulta'
 const DIST_ACCOUNT = 'dist.vaulta'
+const FUND_ACCOUNT = 'fund.vaulta'
 
 export const distContract = new DistributionContract.Contract({ client, account: DIST_ACCOUNT })
-
-// 2-of-2 permission of development team
-export const DEV_AUTHORITY = {
-    threshold: 2,
-    keys: [],
-    accounts: [
-        {
-            weight: 1,
-            permission: {
-                actor: 'ahayrapetian', // Areg
-                permission: 'active',
-            },
-        },
-        {
-            weight: 1,
-            permission: {
-                actor: 'aaron', // Aaron
-                permission: 'active',
-            },
-        },
-    ],
-    waits: [],
-}
 
 const actions: Action[] = [
     // 1. Buy the RAM for the distribution contract
@@ -62,7 +40,11 @@ const actions: Action[] = [
         accounts: [
             {
                 account: DEV_ACCOUNT,
-                percent: 10000,
+                percent: 5000,
+            },
+            {
+                account: FUND_ACCOUNT,
+                percent: 5000,
             },
         ],
     }),
@@ -109,7 +91,20 @@ const actions: Action[] = [
             authorization: [{ actor: 'eosio.mware', permission: 'owner' }],
         },
     ),
-    // 7. Update the dist.vaulta contract to add a new permission for the development team
+    // 7. Update dev.vaulta active permission to VDT multi-sig
+    systemContract.action(
+        'updateauth',
+        {
+            account: DEV_ACCOUNT,
+            auth: DEV_AUTHORITY,
+            permission: 'active',
+            parent: 'owner',
+        },
+        {
+            authorization: [{ actor: DEV_ACCOUNT, permission: 'owner' }],
+        },
+    ),
+    // 8. Update the dist.vaulta contract to add a new permission for the development team
     systemContract.action(
         'updateauth',
         {
@@ -135,7 +130,7 @@ const actions: Action[] = [
             authorization: [{ actor: DIST_ACCOUNT, permission: 'active' }],
         },
     ),
-    // 8. Update the devclaim permission with a eosio::linkauth call so it can only call eosio.saving::claim
+    // 9. Update the devclaim permission with a eosio::linkauth call so it can only call eosio.saving::claim
     systemContract.action(
         'linkauth',
         {
@@ -150,6 +145,6 @@ const actions: Action[] = [
     ),
 ]
 
-const session = makeSession('eosio@active')
+const session = makeSession('eosio@active', 'stage1msig2')
 const result = await session.transact({ actions }, { broadcast: false })
 logProposalLink(result, session)

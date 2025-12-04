@@ -1,4 +1,4 @@
-# Stage 1: Vaulta Foundation Transition (v7)
+# Stage 1: Vaulta Foundation Transition (v8)
 
 > This proposal creates two new legal entities to ensure continuity after the Vaulta Foundation shuts down.
 
@@ -12,12 +12,21 @@
    1. [MSIG 1: Account Creation](#msig-1-account-creation)  
    2. [MSIG 2: Contracts and Configuration](#msig-2-contracts-and-configuration)
 
+### Changes between v7 and v8
+
+1. Changed [MSIG 1](#msig-1-account-creation) to create [dev.vaulta](#devvaulta) with [network authority](#understanding-network-ownership) (15 of 21 Block Producers) for both owner and active permissions
+2. Changed [MSIG 1](#msig-1-account-creation) to create [fund.vaulta](#fundvaulta) account with [network authority](#understanding-network-ownership) (15 of 21 Block Producers) for both owner and active permissions
+3. Changed [MSIG 2](#msig-2-contracts-and-configuration) to update [dev.vaulta](#devvaulta) active permission from [network authority](#understanding-network-ownership) to VDT multi-sig
+4. Updated [dev.vaulta](#devvaulta) section to show permissions after MSIG 1 ([network-owned](#understanding-network-ownership)) and after MSIG 2 (VDT access)
+5. Moved [fund.vaulta](#fundvaulta) documentation from MSIG 2 to MSIG 1 since the account is created in MSIG 1
+6. VDT multi-sig structure (2-of-3 or 3-of-5) will be defined by Areg before MSIG 2
+
 ### Changes between v6 and v7
 
 1. Specified VNT as Canadian non-profit with 5-member transition team (4-of-5 consensus)
 2. Transition team acts as temporary board, determines minimal staff/services, and selects first board
 3. BPs approve transition team and board selection process by signing MSIG 2
-4. BPs can change the board at any time through network consensus (15/21)
+4. Block Producers can change the board at any time through network consensus (15 of 21)
 5. Added VNT Board Powers section with limitations (cannot speak for network, financial assets restricted to maintenance)
 
 ### Changes between v5 and v6
@@ -56,7 +65,7 @@ Network consensus on this proposal is critical. It signals the network's directi
 
 This document uses the phrase "owned by the network". This means no single person controls the account or makes the decision.
 
-Block Producers control these accounts through voting. **15 out of 21 Block Producers must agree** before any action happens.
+Block Producers control these accounts through voting. **15 of 21 Block Producers must agree** before any action happens.
 
 This control happens through the `eosio@active` or `eosio.prods@active` permission. Block Producers use this control to:
 - Manage account permissions
@@ -128,7 +137,7 @@ This proposal delegates development team management to Areg and the team he choo
 
 The VDT will receive 50% of the distribution through the [dev.vaulta](#devvaulta) account from the [dist.vaulta](#distvaulta) account.
 
-The remaining 50% will go to the [fund.vaulta](#fundvaulta) account. This account is [owned by the network](#understanding-network-ownership). The network will decide later how to use these funds. Future uses could include more development funding, community programs, or infrastructure projects.
+The remaining 50% will go to the [fund.vaulta](#fundvaulta) account. This account is [owned by the network](#understanding-network-ownership). The network will decide later how to use these funds.
 
 This amount should be enough to fund the core development team and its operations.
 
@@ -136,9 +145,9 @@ This amount should be enough to fund the core development team and its operation
 
 The [dev.vaulta](#devvaulta) account permissions are managed by a multisig permission. This multisig is controlled by VDT members with additional backup signers selected by VDT leadership.
 
-The final configuration will be confirmed after participants agree to this role.
+The structure will be either 2-of-3 or 3-of-5 as defined by Areg. The final configuration and signers will be confirmed before MSIG 2 execution.
 
-**Note**: The dev.vaulta account permission will be updated in the 2nd msig proposal as needed.
+**Note**: The dev.vaulta account permission will be updated in MSIG 2.
 
 ### VDT Immediate Priorities
 
@@ -163,7 +172,7 @@ The VNT mission is to ensure continuity of these assets as different organizatio
 
 This msig proposal delegates responsibility to select people. They will form a transition team. The transition team will research and bootstrap this entity on behalf of the network.
 
-The transition team will consist of 5 members. Decisions require 4 out of 5 members to agree. The team acts as a temporary board during the transition period.
+The transition team will consist of 5 members. Decisions require 4 of 5 members to agree. The team acts as a temporary board during the transition period.
 
 The group will work to achieve a sensible structure in terms of cost and governance. The transition team will hand over control to the first board once it is selected.
 
@@ -215,7 +224,7 @@ Ideal candidates for board members include:
 - Representatives of network-funded organizations
 - Block Producers
 
-The board can be changed at any time by Block Producers through [network consensus](#understanding-network-ownership) (15 of 21 Block Producers must agree). The transition team will explore enforcement options to ensure this can happen smoothly. This may be through the organization's bylaws or through board member agreements.
+The board can be changed at any time through [network consensus](#understanding-network-ownership) (15 of 21 Block Producers). The transition team will explore enforcement options to ensure this can happen smoothly. This may be through the organization's bylaws or through board member agreements.
 
 ### VNT Funding
 
@@ -251,15 +260,16 @@ Additional technical information for each proposal is available using the Github
 
 ## MSIG 1: Account Creation
 
-MSIG 1 creates the 2 accounts required for this proposal. This must happen before deploying the smart contract and setting the distribution configuration.
+MSIG 1 creates the 3 accounts required for this proposal. This must happen before deploying the smart contract and setting the distribution configuration. All accounts are initially [owned by the network](#understanding-network-ownership).
 
 **Technical Documentation**: [../proposals/dev.accounts/](../proposals/dev.accounts/)
 
 **MSIG Status**
 
-- Status: https://unicove.com/msig/aaron/fwmpntxlmfhz
-- Actions: https://unicove.com/msig/aaron/fwmpntxlmfhz/actions
-- Transaction: https://unicove.com/msig/aaron/fwmpntxlmfhz/transaction
+- Approval UI: https://unicove.com/en/vaulta/msig/aaron/stage1msig1
+- Historic UI: https://msigs.io/proposal/aaron/stage1msig1
+- Actions: https://unicove.com/en/vaulta/msig/aaron/stage1msig1/actions
+- Transaction: https://unicove.com/en/vaulta/msig/aaron/stage1msig1/transaction
 
 **Source Code + Documentation**
 
@@ -271,27 +281,50 @@ The following new accounts will be created.
 
 #### dev.vaulta
 
-This account is similar to eosio.grants previously used by the Vaulta Foundation. This account is [owned by the network](#understanding-network-ownership). The Block Producers have granted access to it for the [Vaulta Development Team](#vaulta-development-team-vdt). It will be used to claim and access funding through the [dist.vaulta](#distvaulta) distribution contract.
+This account is similar to eosio.grants previously used by the Vaulta Foundation. This account is [owned by the network](#understanding-network-ownership). MSIG 2 will grant access to the [Vaulta Development Team](#vaulta-development-team-vdt). It will be used to claim and access funding through the [dist.vaulta](#distvaulta) distribution contract.
 
-**Permissions**:
-- owner: eosio@active (owned by the network)
-- active: Areg + Aaron
-  - **Note**: will be replaced in 2nd msig with [VDT Permissions](#vdt-permissions)
+**Permissions (after MSIG 1)**:
+- owner: eosio@active ([15 of 21 Block Producers](#understanding-network-ownership))
+- active: eosio@active ([15 of 21 Block Producers](#understanding-network-ownership))
+
+**Permissions (after MSIG 2)**:
+- owner: eosio@active ([15 of 21 Block Producers](#understanding-network-ownership)) - (No changes from MSIG 1)
+- active: VDT multi-sig ([VDT Permissions](#vdt-permissions))
+  - Structure: Either 2-of-3 or 3-of-5 as defined by Areg
+  - Signers: To be confirmed before MSIG 2 execution
 
 #### dist.vaulta
 
 This is a secondary distribution contract [owned by the network](#understanding-network-ownership). The code for this contract is identical to eosio.saving.
 
-**Permissions**:
-- owner: eosio@active (owned by the network)
-- active: eosio@active (owned by the network)
-- devclaim: account-based permission to allow calling upstream eosio.saving::claim action
+**Permissions (after MSIG 1)**:
+- owner: eosio@active ([15 of 21 Block Producers](#understanding-network-ownership))
+- active: eosio@active ([15 of 21 Block Producers](#understanding-network-ownership))
+
+**Permissions (after MSIG 2)**:
+- owner: eosio@active ([15 of 21 Block Producers](#understanding-network-ownership)) - (No changes from MSIG 1)
+- active: eosio@active ([15 of 21 Block Producers](#understanding-network-ownership)) - (No changes from MSIG 1)
+- devclaim: dev.vaulta@active (allows calling upstream eosio.saving::claim action)
 
 This contract can claim tokens upstream from the eosio.saving account. Those tokens are then distributed based on this contract's configuration. See [eosio.saving config](#eosiosaving-config) for additional details.
 
+#### fund.vaulta
+
+This account receives the 50% unallocated distribution from the dist.vaulta account. The distribution contract requires a receiving account for each allocation. These funds remain under [network control](#understanding-network-ownership) for future use.
+
+Block Producers will decide later how to use these funds.
+
+**Permissions (after MSIG 1)**:
+- owner: eosio@active ([15 of 21 Block Producers](#understanding-network-ownership))
+- active: eosio@active ([15 of 21 Block Producers](#understanding-network-ownership))
+
+**Permissions (after MSIG 2)**:
+- owner: eosio@active ([15 of 21 Block Producers](#understanding-network-ownership)) - (No changes from MSIG 1)
+- active: eosio@active ([15 of 21 Block Producers](#understanding-network-ownership)) - (No changes from MSIG 1)
+
 ## MSIG 2: Contracts and Configuration
 
-MSIG 2 configures the distribution contracts and resolves outstanding issues with Vaulta Foundation accounts.
+MSIG 2 configures the distribution contracts, updates dev.vaulta permissions to grant VDT access, and resolves outstanding issues with Vaulta Foundation accounts.
 
 **Technical Documentation**: [../proposals/coredevdist/](../proposals/coredevdist/)
 
@@ -321,19 +354,9 @@ Once the contract is set, the setdistrib action will be called to distribute fun
 - 50% to dev.vaulta account
 - 50% to fund.vaulta account
 
-### New Account Details
+### Permission Updates
 
-The following new account will be created.
-
-#### fund.vaulta
-
-This account receives the 50% unallocated distribution from the dist.vaulta account. The distribution contract requires a receiving account for each allocation. These funds remain under network control for future use.
-
-Block Producers will decide later how to use these funds. Possible uses include additional development funding, community programs, or infrastructure projects.
-
-**Permissions**:
-- owner: eosio@active ([owned by the network](#understanding-network-ownership))
-- active: eosio@active
+MSIG 2 will update the dev.vaulta active permission to grant the VDT multi-sig access. The structure will be either 2-of-3 or 3-of-5 as defined by Areg. This enables the development team to claim funds from the dist.vaulta contract while maintaining network ownership of the account.
 
 ### eosio.saving config
 
@@ -423,11 +446,11 @@ Links: [Account](https://unicove.com/account/eosio.mware) | [Permissions](https:
 This account holds the remaining budget allocated to Middleware.
 
 Account overview:
-- Owner: eosio@active (owned by the network)
+- Owner: eosio@active ([15 of 21 Block Producers](#understanding-network-ownership))
 - Active: 2-of-2 msig between Foundation and Labs
 - 10 million EOS allocated to Middleware, but not released
 
-MSIG 2 will change the active permission to [network ownership](#understanding-network-ownership).
+MSIG 2 changes the active permission to [network authority (15 of 21 Block Producers)](#understanding-network-ownership).
 
 #### fund.wram
 
@@ -436,8 +459,8 @@ Links: [Account](https://unicove.com/account/fund.wram) | [Permissions](https://
 This account was used to accumulate RAM for the network as part of the tokenomics proposal. It currently holds a significant amount of RAM. The RAM cannot be accessed with its current permissions.
 
 Account overview:
-- Owner: eosio@active (owned by the network)
+- Owner: eosio@active ([15 of 21 Block Producers](#understanding-network-ownership))
 - Active: 2-of-2 msig between Foundation and Labs
 - Approx 42GB RAM (45,181,397.077 KB) from tokenomics plan
 
-MSIG 2 will change the active permission to [network ownership](#understanding-network-ownership).
+MSIG 2 changes the active permission to [network authority (15 of 21 Block Producers)](#understanding-network-ownership).

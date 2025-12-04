@@ -43,6 +43,6 @@ accounts.forEach((name) => {
     )
 })
 
-const session = makeSession('eosio@active')
+const session = makeSession('eosio@active', 'miscaccounts')
 const result = await session.transact({ actions }, { broadcast: true })
 logProposalLink(result, session)

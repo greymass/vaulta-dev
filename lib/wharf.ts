@@ -21,7 +21,7 @@ export const proposerSession = new Session({
     walletPlugin: walletPlugin,
 })
 
-export function makeSession(permissionLevel: string): Session {
+export function makeSession(permissionLevel: string, proposalName?: string): Session {
     const session = new Session({
         chain,
         permissionLevel,
@@ -30,6 +30,9 @@ export function makeSession(permissionLevel: string): Session {
         }),
     })
     session.walletPlugin.data.session = proposerSession // Inject proposer session
+    if (proposalName) {
+        session.walletPlugin.data.proposalName = proposalName
+    }
     return session
 }
 

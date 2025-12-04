@@ -4,27 +4,31 @@
 
 ## Overview
 
-This proposal creates the foundational accounts required for the Vaulta development infrastructure. It establishes two critical accounts: `dist.vaulta` for distribution and `dev.vaulta` for the development team's multi-signature operations.
+This proposal creates the foundational accounts required for the Vaulta development infrastructure. It establishes three critical accounts: `dist.vaulta` for distribution, `dev.vaulta` for development team access, and `fund.vaulta` for unallocated funds.
 
 This is being done in an independent step since msig proposals cannot create accounts and deploy contracts at the same time.
 
-This simple proposal only creates these new accounts. Future msig proposals will need to be approved to complete this setup.
+This simple proposal only creates these new accounts. All accounts are initially owned by the network authority (15 of 21 Block Producers). Future msig proposals will update permissions as needed.
 
 ## Account Structure
 
 ### dist.vaulta
 - **Purpose**: Distribution contract account
-- **Owner Permission**: Network authority (`eosio@active`)
-- **Active Permission**: Network authority (`eosio@active`)
+- **Owner Permission**: Network authority - 15 of 21 Block Producers (`eosio@active`)
+- **Active Permission**: Network authority - 15 of 21 Block Producers (`eosio@active`)
 - **RAM Allocation**: 8,192 bytes
 
 ### dev.vaulta
-- **Purpose**: Development team multi-sig account
-- **Owner Permission**: Network authority (`eosio@active`)
-- **Active Permission**: 2-of-2 multi-signature
-  - ahayrapetian@active (Areg) - weight: 1
-  - aaron@active (Aaron) - weight: 1
-  - threshold: 2
+- **Purpose**: Development team account
+- **Owner Permission**: Network authority - 15 of 21 Block Producers (`eosio@active`)
+- **Active Permission**: Network authority - 15 of 21 Block Producers (`eosio@active`)
+- **RAM Allocation**: 8,192 bytes
+- **Note**: Active permission will be updated to VDT multi-sig in MSIG 2
+
+### fund.vaulta
+- **Purpose**: Unallocated funds from distribution
+- **Owner Permission**: Network authority - 15 of 21 Block Producers (`eosio@active`)
+- **Active Permission**: Network authority - 15 of 21 Block Producers (`eosio@active`)
 - **RAM Allocation**: 8,192 bytes
 
 ## Actions
@@ -81,7 +85,7 @@ This simple proposal only creates these new accounts. Future msig proposals will
 
 ### 2. Create dev.vaulta account
 
-- [x] 2.1 Create new account `dev.vaulta` with 2-of-2 multi-sig active permission
+- [x] 2.1 Create new account `dev.vaulta` with network authority
 - [x] 2.2 Purchase 8,192 bytes of RAM for `dev.vaulta`
 
 **eosio::newaccount**
@@ -104,20 +108,13 @@ This simple proposal only creates these new accounts. Future msig proposals will
         "waits": []
     },
     "active": {
-        "threshold": 2,
+        "threshold": 1,
         "keys": [],
         "accounts": [
             {
                 "weight": 1,
                 "permission": {
-                    "actor": "ahayrapetian",
-                    "permission": "active"
-                }
-            },
-            {
-                "weight": 1,
-                "permission": {
-                    "actor": "aaron",
+                    "actor": "eosio",
                     "permission": "active"
                 }
             }
@@ -136,8 +133,59 @@ This simple proposal only creates these new accounts. Future msig proposals will
 }
 ```
 
+### 3. Create fund.vaulta account
+
+- [x] 3.1 Create new account `fund.vaulta` with network authority
+- [x] 3.2 Purchase 8,192 bytes of RAM for `fund.vaulta`
+
+**eosio::newaccount**
+```json
+{
+    "creator": "eosio",
+    "name": "fund.vaulta",
+    "owner": {
+        "threshold": 1,
+        "keys": [],
+        "accounts": [
+            {
+                "weight": 1,
+                "permission": {
+                    "actor": "eosio",
+                    "permission": "active"
+                }
+            }
+        ],
+        "waits": []
+    },
+    "active": {
+        "threshold": 1,
+        "keys": [],
+        "accounts": [
+            {
+                "weight": 1,
+                "permission": {
+                    "actor": "eosio",
+                    "permission": "active"
+                }
+            }
+        ],
+        "waits": []
+    }
+}
+```
+
+**eosio::buyrambytes**
+```json
+{
+    "payer": "eosio",
+    "receiver": "fund.vaulta",
+    "bytes": 8192
+}
+```
+
 ## Security Considerations
 
-- Both accounts have their **owner** permission set to network authority (`eosio@active`) for maximum security
-- The `dev.vaulta` **active** permission requires signatures from both development team members (2-of-2), ensuring no single person can execute transactions
-- The `dist.vaulta` account is fully controlled by network authority, preventing unauthorized modifications to the distribution contract
+- All three accounts have both **owner** and **active** permissions set to network authority (15 of 21 Block Producers via `eosio@active`) for maximum security
+- The `dev.vaulta` active permission will be updated to a VDT multi-sig in MSIG 2
+- The `dist.vaulta` account remains fully controlled by network authority (15 of 21 Block Producers), preventing unauthorized modifications to the distribution contract
+- The `fund.vaulta` account remains fully controlled by network authority (15 of 21 Block Producers) for future allocation decisions

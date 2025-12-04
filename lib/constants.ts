@@ -37,3 +37,35 @@ export const NETWORK_AUTHORITY = {
     ],
     waits: [],
 }
+
+// VDT multi-sig permission (to be defined by Areg: either 2-of-3 or 3-of-5)
+// Placeholder configuration - MUST be updated before executing MSIG 2
+export const DEV_AUTHORITY = {
+    threshold: 2, // Update based on final structure
+    keys: [],
+    accounts: [
+        {
+            weight: 1,
+            permission: {
+                actor: 'ahayrapetian', // Areg
+                permission: 'active',
+            },
+        },
+        {
+            weight: 1,
+            permission: {
+                actor: 'tbd1', // To be defined
+                permission: 'active',
+            },
+        },
+        {
+            weight: 1,
+            permission: {
+                actor: 'tbd2', // To be defined (only if 3-of-5)
+                permission: 'active',
+            },
+        },
+        // Add more accounts if using 3-of-5 structure
+    ],
+    waits: [],
+}

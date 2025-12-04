@@ -3,57 +3,51 @@ import { logProposalLink } from '$lib/utils'
 import { makeSession, systemContract } from '$lib/wharf'
 import { NETWORK_AUTHORITY, SYSTEM_ACCOUNT } from '../../lib/constants'
 
-// 2-of-2 permission of development team
-export const DEV_AUTHORITY = {
-    threshold: 2,
-    keys: [],
-    accounts: [
-        {
-            weight: 1,
-            permission: {
-                actor: 'ahayrapetian', // Areg
-                permission: 'active',
-            },
-        },
-        {
-            weight: 1,
-            permission: {
-                actor: 'aaron', // Aaron
-                permission: 'active',
-            },
-        },
-    ],
-    waits: [],
-}
+const DEV_ACCOUNT = 'dev.vaulta'
+const DIST_ACCOUNT = 'dist.vaulta'
+const FUND_ACCOUNT = 'fund.vaulta'
 
 const actions: Action[] = [
     // 1. Create the new distribution contract
     systemContract.action('newaccount', {
         active: NETWORK_AUTHORITY,
         creator: SYSTEM_ACCOUNT,
-        name: 'dist.vaulta',
+        name: DIST_ACCOUNT,
         owner: NETWORK_AUTHORITY,
     }),
     systemContract.action('buyrambytes', {
         bytes: 8192,
         payer: SYSTEM_ACCOUNT,
-        receiver: 'dist.vaulta',
+        receiver: DIST_ACCOUNT,
     }),
 
     // 2. Create the development team account
     systemContract.action('newaccount', {
-        active: DEV_AUTHORITY,
+        active: NETWORK_AUTHORITY,
         creator: SYSTEM_ACCOUNT,
-        name: 'dev.vaulta',
+        name: DEV_ACCOUNT,
         owner: NETWORK_AUTHORITY,
     }),
     systemContract.action('buyrambytes', {
         bytes: 8192,
         payer: SYSTEM_ACCOUNT,
-        receiver: 'dev.vaulta',
+        receiver: DEV_ACCOUNT,
+    }),
+
+    // 3. Create the unallocated funds account
+    systemContract.action('newaccount', {
+        active: NETWORK_AUTHORITY,
+        creator: SYSTEM_ACCOUNT,
+        name: FUND_ACCOUNT,
+        owner: NETWORK_AUTHORITY,
+    }),
+    systemContract.action('buyrambytes', {
+        bytes: 8192,
+        payer: SYSTEM_ACCOUNT,
+        receiver: FUND_ACCOUNT,
     }),
 ]
 
-const session = makeSession('eosio@active')
+const session = makeSession('eosio@active', 'stage1msig1')
 const result = await session.transact({ actions }, { broadcast: true })
 logProposalLink(result, session)
